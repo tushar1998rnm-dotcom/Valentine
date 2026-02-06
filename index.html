@@ -126,19 +126,60 @@
 </div>
 
 <script>
+    let speedMultiplier = 1;
+    let lastX = 0;
+    let lastY = 0;
+
+    const teaseMessages = [
+        "Nice try 😜",
+        "Not today 😆",
+        "Only YES allowed ❤️",
+        "You can't catch me 😝",
+        "Just say YES already 😍",
+        "Hehehe 😈",
+        "Almost 😆"
+    ];
+
     function moveNo() {
         const noBtn = document.getElementById("noBtn");
+        const card = document.querySelector(".card");
 
-        const padding = 20;
-        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        const rect = card.getBoundingClientRect();
 
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        const maxX = rect.width - noBtn.offsetWidth - 20;
+        const maxY = rect.height - noBtn.offsetHeight - 20;
 
-        noBtn.style.position = "fixed";
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
+        const x = Math.random() * maxX - maxX / 2;
+        const y = Math.random() * maxY - maxY / 2;
+
+        lastX += x;
+        lastY += y;
+
+        noBtn.style.transition = `transform ${0.25 / speedMultiplier}s ease-out`;
+        noBtn.style.transform = `translate(${lastX}px, ${lastY}px)`;
+
+        speedMultiplier += 0.12;
+
+        showTease();
+    }
+
+    function showTease() {
+        const msg = document.createElement("div");
+        msg.innerText = teaseMessages[Math.floor(Math.random() * teaseMessages.length)];
+        msg.style.position = "fixed";
+        msg.style.top = Math.random() * 70 + "vh";
+        msg.style.left = Math.random() * 60 + "vw";
+        msg.style.background = "rgba(255,255,255,0.95)";
+        msg.style.color = "#ff2d55";
+        msg.style.padding = "8px 14px";
+        msg.style.borderRadius = "12px";
+        msg.style.fontSize = "16px";
+        msg.style.fontWeight = "bold";
+        msg.style.boxShadow = "0 5px 15px rgba(0,0,0,0.2)";
+        msg.style.zIndex = "999";
+
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 1200);
     }
 
     function createHeart() {
@@ -157,20 +198,27 @@
 
     function yesClicked() {
         document.body.innerHTML = `
+            <audio autoplay loop>
+                <source src="https://cdn.pixabay.com/audio/2022/10/26/audio_eb5c94d8e6.mp3" type="audio/mpeg">
+            </audio>
+
             <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff758c,#ff7eb3);color:white;text-align:center;padding:20px;">
                 
-                <div class="meme">😂 You Made The Best Decision 😂</div>
+                <div class="meme" style="background:white;color:#ff2d55;padding:18px 26px;border-radius:18px;font-size:24px;font-weight:bold;box-shadow:0 10px 25px rgba(0,0,0,0.25);">
+                    😂 You Made The Best Decision 😂
+                </div>
                 
                 <h1 style="margin-top:25px;">Yayyy Kritika!! 💖</h1>
                 <h2>You just made me the happiest husband 😍</h2>
-                <p style="font-size:24px;max-width:450px;">I love you more than words can ever express ❤️ You are my life, my happiness, my forever 💕</p>
+                <p style="font-size:24px;max-width:480px;">
+                    I love you more than words can ever express ❤️  
+                    You are my life, my happiness, my forever 💕
+                </p>
                 <h3>Happy Valentine’s Day My Love 🌹</h3>
             </div>
         `;
 
-        for (let i = 0; i < 150; i++) {
-            createHeart();
-        }
+        for (let i = 0; i < 200; i++) createHeart();
     }
 </script>
 
