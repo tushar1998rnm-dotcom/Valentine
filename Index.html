@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+    }
+
+    .card {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        max-width: 350px;
+        width: 90%;
+    }
+
+    h1 {
+        color: #ff4d6d;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .buttons {
+        position: relative;
+        height: 80px;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    #yesBtn:hover {
+        background: #e63b5c;
+    }
+
+    #noBtn {
+        background: #ccc;
+        position: absolute;
+        right: 0;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Hey My Love ❤️</h1>
+    <p>Will you be my Valentine? 💕</p>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="yesClicked()">Yes 😘</button>
+        <button id="noBtn" onmouseover="moveNo()">No 🙈</button>
+    </div>
+</div>
+
+<script>
+    function moveNo() {
+        const noBtn = document.getElementById("noBtn");
+        const container = document.querySelector(".buttons");
+
+        const maxX = container.offsetWidth - noBtn.offsetWidth;
+        const maxY = container.offsetHeight - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    }
+
+    function yesClicked() {
+        document.body.innerHTML = `
+            <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff758c,#ff7eb3);color:white;text-align:center;">
+                <h1>Yayyy!! 💖</h1>
+                <h2>You just made me the happiest husband 😍</h2>
+                <p style="font-size:22px;">I love you forever ❤️</p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
